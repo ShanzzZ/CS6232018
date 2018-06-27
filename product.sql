@@ -36,16 +36,4 @@ INSERT INTO Stock (prod_id, dep_id, quantity)VALUES
 ('p2','d2',2000);
 
 
-
-
-
-
-CREATE TABLE Teaching (
-ProfId INTEGER,
-CrsCode CHAR (6),
-Semester CHAR (6),
-PRIMARY KEY (CrsCode, Semester),
-FOREIGN KEY (ProfId) REFERENCES Professor (Id)
-ON DELETE CASCADE, 
-FOREIGN KEY (CrsCode) REFERENCES Course (CrsCode)
-ON DELETE SET NULL)
+DELETE Depot, Stock FROM Depot LEFT JOIN Stock ON Depot.dep_id = Stock.dep_id WHERE Depot.dep_id = "d1";
