@@ -36,6 +36,3 @@ INSERT INTO Stock (prod_id, dep_id, quantity)VALUES
 ('p2','d2',2000);
 
 
-DELETE Depot, Stock FROM Depot LEFT JOIN Stock ON Depot.dep_id = Stock.dep_id WHERE Depot.dep_id = "d1";
-//The depot d1 is deleted from Depot and Stock.
-
