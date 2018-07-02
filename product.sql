@@ -14,8 +14,7 @@ Create table Depot(
 dep_id char(10),
 addr varchar(30),
 volume integer);
-Alter table Depot add constraint pk_depot primary key (dep_id);
-Alter table Depot add constraint ck_depot_volume check (volume >= 0);
+
 
 INSERT INTO Depot (dep_id, addr, volume)VALUES
 ('d1','New York',9000),
@@ -26,9 +25,7 @@ Create table Stock(
 prod_id char(10),
 dep_id char(10),
 quantity integer);
-Alter table Stock add constraint pk_stock primary key(prod_id,dep_id);
-Alter table Stock add constraint fk_product foreign key (prod_id) REFERENCES Product (pro_id) ON UPDATE CASCADE;
-Alter table Stock add constraint fk_depot foreign key (dep_id) REFERENCES Depot (dep_id);
+
 
 INSERT INTO Stock (prod_id, dep_id, quantity)VALUES
 ('p1','d1',1000),
