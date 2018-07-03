@@ -36,7 +36,7 @@ SELECT prod_id FROM Product WHERE price>=250 AND price<=400;
 
 
 #6. How many products are out of stock?*
-SELECT COUNT(*) FROM Stock WHERE quantity<=0;
+SELECT -SUM(quantity) AS OutOfStock FROM Stock WHERE quantity<=0;
 
 
 #7. Average of the prices of the products stocked in the ”d2” depot.*
@@ -53,12 +53,12 @@ SELECT prod_id,SUM(quantity) FROM Stock GROUP BY prod_id;
 
 #10. Products names stocked in at least 3 depots.*
 #(a) using count 
-SELECT pname FROM Product P,Stock S WHERE P.prod_id IN (SELECT COUNT(dep_id)>=3 FROM Stock);
+SELECT pname FROM Product WHERE prod_id IN (SELECT prod_id FROM Stock GROUP BY prod_id HAVING COUNT(dep_id)>=3);
 #(b) without using count
-SELECT pname FROM Product WHERE prod_id IN (SELECT dep_id FROM Stock WHERE dep_id='d1' AND 'd2' AND 'd4');
+
 
 #11. #prod stocked in all depots.*
 #(a) using count 
-SELECT prod_id FROM Stock GROUP BY prod_id HAVING (SELECT COUNT(dep_id)=3 FROM Stock);
+
 #(b) using exists/not exist
-SELECT prod_id FROM Stock S,Depot D GROUP BY prod_id HAVING EXISTS(SELECT dep_id FROM Stock WHERE dep_id='d1' AND dep_id='d2' AND dep_id='d4');
+
