@@ -28,7 +28,9 @@ SELECT addr FROM Depot D WHERE EXISTS(SELECT S.dep_id FROM Stock S WHERE D.dep_i
 
 #5. #prods whose price is between $250.00 and $400.00.*
 #(a) using intersect. 
-
+SELECT prod_id FROM Product WHERE price >=250 
+INTERSECT 
+SELECT prod_id FROM Product WHERE price <=400;
 #(b) without intersect.
 SELECT prod_id FROM Product WHERE price>=250 AND price<=400;
 
@@ -38,7 +40,7 @@ SELECT COUNT(*) FROM Stock WHERE quantity<=0;
 
 
 #7. Average of the prices of the products stocked in the ”d2” depot.*
-SELECT AVG(price) AS AveragePrice FROM Product P,Stock S WHERE P.prod_id = S.prod_id='d2';
+SELECT AVG(price) AS AveragePrice FROM Product P,Stock S WHERE P.prod_id = S.prod_id AND dep_id = 'd2';
 
 
 #8. #deps of the depot(s) with the largest capacity (volume).*
@@ -48,15 +50,15 @@ SELECT dep_id FROM Depot WHERE volume = (SELECT max(volume) FROM Depot);
 #9. Sum of the stocked quantity of each product.*
 SELECT prod_id,SUM(quantity) FROM Stock GROUP BY prod_id;
 
+
 #10. Products names stocked in at least 3 depots.*
 #(a) using count 
-SELECT pname FROM Product,Stock WHERE dep_id = (SELECT COUNT(*)>=3 FROM Stock);
-SELECT pname FROM Product,Stock WHERE (SELECT COUNT(dep_id)>=3 FROM Stock);
+SELECT pname FROM Product P,Stock S WHERE P.prod_id IN (SELECT COUNT(dep_id)>=3 FROM Stock);
 #(b) without using count
 
 
 #11. #prod stocked in all depots.*
 #(a) using count 
-SELECT prod_id FROM Stock WHERE (SELECT COUNT(dep_id)=4 FROM Stock);
+
 #(b) using exists/not exist
-SELECT prod_id FROM Stock WHERE EXISTS(SELECT dep_id FROM Stock WHERE dep_id = 'd1' OR 'd2' OR 'd3' OR 'd4' );
+
