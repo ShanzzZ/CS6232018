@@ -97,8 +97,23 @@ public class Test {
 			System.out.println("\nAfter Update:");
 			
 			//Group 2 : delete  dep_id = 'd1' from both Depot and Stock
-			//stmt.executeUpdate("DELETE FROM Depot WHERE dep_id = 'd1'");   //Isolation
-			stmt.executeUpdate("DELETE FROM Stock WHERE dep_id='d1'");		
+			stmt.executeUpdate("DELETE FROM Stock WHERE dep_id='d1'");
+		    
+		         /*rs3 = stmt.executeQuery("select * from Depot");  
+			 System.out.println("Depot"); 
+			 System.out.println("Dep_id " + " Addr " + " Volume"); 
+			 while(rs3.next()) { 
+			 System.out.println( rs3.getString("dep_id") + "\t " + rs3.getString("addr") + "\t " + rs3.getInt("volume")); 
+			 }  
+			 
+			 rs4 = stmt.executeQuery("select * from Stock"); 
+			 System.out.println("\nStock"); 
+			 System.out.println("prod_Id " + "dep_Id " + " quantity "); 
+			 while(rs4.next()) { 
+			 System.out.println(rs4.getString("Prod_Id") + "\t "+ rs4.getString("Dep_Id") + "\t " + rs4.getInt("Quantity")); 
+			 }
+			 
+			*/
 			stmt.executeUpdate("DELETE FROM Depot WHERE dep_id = 'd1'"); 
 			//stmt.executeUpdate("DELETE FROM Depot WHERE prod_id = 'd1'");  //Auto
 			
