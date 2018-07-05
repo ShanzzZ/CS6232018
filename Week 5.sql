@@ -55,10 +55,12 @@ SELECT prod_id,SUM(quantity) FROM Stock GROUP BY prod_id;
 #(a) using count 
 SELECT pname FROM Product WHERE prod_id IN (SELECT prod_id FROM Stock GROUP BY prod_id HAVING COUNT(dep_id)>=3);
 #(b) without using count
-
+SELECT pname FROM Product WHERE prod_id IN (SELECT S1.prod_id FROM Stock S1, Stock S2, Stock S3 
+WHERE S1.dep_id <> S2.dep_id AND S1.dep_id <> S3.dep_id AND S2.dep_id <> S3.dep_id AND S1.prod_id = S2.prod_id AND S2.prod_id = S3.prod_id);
 
 #11. #prod stocked in all depots.*
 #(a) using count 
-
+SELECT prod_id FROM Stock GROUP BY prod_id HAVING COUNT(dep_id)=(SELECT COUNT(*) FROM depot);
 #(b) using exists/not exist
-
+SELECT prod_id FROM Product P WHERE EXISTS (SELECT prod_id FROM Stock S WHERE P.prod_id=S.prod_id GROUP BY prod_id 
+HAVING COUNT(dep_id)=(SELECT COUNT(*) FROM depot ));
